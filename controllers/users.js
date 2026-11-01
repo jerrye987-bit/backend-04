@@ -81,17 +81,31 @@ const deleteUser = (request, response) => {
 const takeBook = (request, response) => {
   const { user_id } = request.params;
   const { book_id } = request.body;
-  return User.findByIdAndUpdate(
-    user_id,
-    { $addToSet: { books: book_id } },
-    { new: true },
-  )
+  return User.findById(user_id)
     .then((user) => {
       if (!user) {
         response.status(404).send({ message: "Пользователь не найден" });
         return;
       }
-      response.status(200).send(user);
+      return User.findOne({ books: book_id }).then((holder) => {
+        if (holder && String(holder._id) !== String(user_id)) {
+          response
+            .status(409)
+            .send({ message: "Книга уже взята другим читателем" });
+          return;
+        }
+        return User.findByIdAndUpdate(
+          user_id,
+          { $addToSet: { books: book_id } },
+          { new: true },
+        );
+      });
+    })
+    .then((updatedUser) => {
+      if (!updatedUser) {
+        return;
+      }
+      response.status(200).send(updatedUser);
     })
     .catch(() => {
       response.status(404).send({ message: "Пользователь не найден" });
@@ -118,19 +132,28 @@ const returnBook = (request, response) => {
 };
 
 const getUserBooks = (request, response) => {
-    const { user_id } = request.params;
-    return User.findById(user_id)
-        .populate('books')
-        .then((user) => {
-            if (!user) {
-                response.status(404).send({ message: 'Пользователь не найден' });
-                return;
-            }
-            response.status(200).send(user.books);
-        })
-        .catch(() => {
-            response.status(404).send({ message: 'Пользователь не найден' });
-        });
+  const { user_id } = request.params;
+  return User.findById(user_id)
+    .populate("books")
+    .then((user) => {
+      if (!user) {
+        response.status(404).send({ message: "Пользователь не найден" });
+        return;
+      }
+      response.status(200).send(user.books);
+    })
+    .catch(() => {
+      response.status(404).send({ message: "Пользователь не найден" });
+    });
 };
 
-module.exports = { getUsers, getUser, createUser, updateUser, deleteUser, takeBook, returnBook, getUserBooks };
+module.exports = {
+  getUsers,
+  getUser,
+  createUser,
+  updateUser,
+  deleteUser,
+  takeBook,
+  returnBook,
+  getUserBooks,
+};
