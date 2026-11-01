@@ -1,0 +1,74 @@
+### Все пользователи
+GET http://127.0.0.1:3005/users
+
+### Создать пользователя
+POST http://127.0.0.1:3005/users
+Content-Type: application/json
+
+{
+    "name": "Dariya",
+    "surname": "Dasha",
+    "username": "Sokolova"
+}
+
+### Получить пользователя по ID
+GET http://127.0.0.1:3005/users/6ae72ccba9c1bd076f136ea7
+
+### Обновить пользователя
+PATCH http://127.0.0.1:3005/users/6ae72d4ea9c1bd076f136ea8
+Content-Type: application/json
+
+{
+    "name": "Oleg",
+    "surname": "Petrov",
+    "username": "olegpetrov"
+}
+
+### Удалить пользователя
+DELETE http://127.0.0.1:3005/users/6ae72d4ea9c1bd076f136ea8
+
+### Все книги
+GET http://127.0.0.1:3005/books
+
+### Создать книгу
+POST http://127.0.0.1:3005/books
+Content-Type: application/json
+
+{
+    "title": "Унесенные ветром",
+    "author": "Митчелл",
+    "year": 1936
+}
+
+### Получить книгу по ID
+GET http://127.0.0.1:3005/books/6ae72e0fa9c1bd076f136eab
+
+### Обновить книгу
+PATCH http://127.0.0.1:3005/books/6ae72e0fa9c1bd076f136eab
+Content-Type: application/json
+
+{
+    "title": "Война и мир",
+    "author": "Лев Николаевич Толстой",
+    "year": 1869
+}
+
+### Удалить книгу
+DELETE http://127.0.0.1:3005/books/6ae72ecaa9c1bd076f136ead
+
+### Несуществующий роут — проверка 404
+GET http://127.0.0.1:3005/abrakadabra
+
+### Взять книгу
+POST http://127.0.0.1:3005/users/6ae72da0a9c1bd076f136ea9/books
+Content-Type: application/json
+
+{
+    "book_id": "6ae72e0fa9c1bd076f136eab"
+}
+
+### Список взятых книг
+GET http://127.0.0.1:3005/users/6ae72ccba9c1bd076f136ea7/books
+
+### Вернуть книгу
+DELETE http://127.0.0.1:3005/users/6ae732d794c4719b339fdbfa/books/6ae72e6aa9c1bd076f136eac
