@@ -60,15 +60,15 @@ DELETE http://127.0.0.1:3005/books/6ae72ecaa9c1bd076f136ead
 GET http://127.0.0.1:3005/abrakadabra
 
 ### Взять книгу
-POST http://127.0.0.1:3005/users/6ae72da0a9c1bd076f136ea9/books
+POST http://127.0.0.1:3005/users/6ae735c094c4719b339fdbff/books
 Content-Type: application/json
 
 {
-    "book_id": "6ae72e0fa9c1bd076f136eab"
+    "book_id": "6ae72f33a9c1bd076f136eae"
 }
 
 ### Список взятых книг
 GET http://127.0.0.1:3005/users/6ae72ccba9c1bd076f136ea7/books
 
 ### Вернуть книгу
-DELETE http://127.0.0.1:3005/users/6ae732d794c4719b339fdbfa/books/6ae72e6aa9c1bd076f136eac
+DELETE http://127.0.0.1:3005/users/6ae72ccba9c1bd076f136ea7/books/6ae72e0fa9c1bd076f136eab
